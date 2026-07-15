@@ -1,53 +1,72 @@
-# 🏛️ Global Campus Data Warehouse Architecture
+# 🌍 Global Campus Data Warehouse Architecture
 
 ## 📌 Executive Summary
-This project demonstrates an end-to-end Data Engineering and Business Intelligence solution designed to solve a common enterprise problem: **centralizing decentralized, siloed data from multiple local campuses into a single, automated source of truth.** 
+This repository contains the architecture and documentation for a scalable Data Engineering and Business Intelligence solution designed for a global education network. The project objective is to engineer the elegant flow of data from decentralized systems into a centralized repository[cite: 1]. 
 
-By applying Kaizen principles of continuous improvement, this project transforms highly manual data aggregation processes into an automated ETL pipeline, culminating in a robust dimensional model optimized for executive reporting.
+Modeled for an institution spanning over 50 schools across five continents and serving in excess of 20,000 students annually[cite: 1], this architecture unifies disparate data sources across core educational domains: Business, hospitality management, culinary arts, and gastronomy[cite: 1]. By applying Kaizen principles, highly manual data entry processes are eliminated in favor of automated, efficient business workflows[cite: 1].
 
 ---
 
 ## 🛠️ Architecture & Tech Stack
 *   **ETL & Data Transformation:** Power Query (M Language), SQL
-*   **Data Modeling:** Power BI (Star Schema design)
-*   **Visualization & Reporting:** Power BI
-*   **Core Focus:** Pipeline Automation, Data Integrity, Dimensional Modeling
+*   **Data Modeling:** Power BI (Star Schema / Dimensional Modeling)[cite: 1]
+*   **Visualization & Reporting:** Power BI[cite: 1]
+*   **Automation & Alerting:** Power Automate, Power BI Data Alerts
 
 ---
 
-## 🏗️ The Engineering Process (ETL)
+## 🏗️ The Engineering Process (ETL Pipeline)
 
-The core of this project was engineering a reliable pipeline to handle disparate data sources.
+The core challenge addressed by this architecture is collating and centralizing data from multiple sources to report against[cite: 1]. The pipeline integrates three simulated primary data streams:
 
-### 1. Extract (Data Ingestion)
-Simulated the ingestion of decentralized data originating from various formats (CSV, Excel, local databases) representing different campus locations. The challenge was standardizing the inconsistent data structures from each source.
+1.  **Azure SQL Databases:** Handling structured Financial and Sales data[cite: 1].
+2.  **SharePoint (Excel/CSV):** Ingesting decentralized Student Performance and Functional Excellence metrics submitted by regional campus directors[cite: 1].
+3.  **Third-Party APIs:** Connecting external Compliance and Risk Management audit data[cite: 1].
 
-### 2. Transform (Data Cleaning & Standardization)
-Utilized Power Query as the primary transformation engine to clean and structure the raw data:
-*   **Data Type Enforcement:** Ensured strict data typing to prevent downstream errors.
-*   **Handling Nulls & Anomalies:** Implemented logic to handle missing values and standardize naming conventions across campuses.
-*   **Merging & Appending:** Consolidated individual campus data into unified staging tables.
-
-### 3. Load (Data Modeling)
-Rather than loading flat files directly into the reporting layer, the data was structured into a highly optimized dimensional model.
+### Data Transformation & Cleaning
+Raw data undergoes rigorous cleaning, massaging, and transformation into comparable formats[cite: 1] using Power Query:
+*   **Currency Standardization:** Dynamically converting local continent currencies into a unified base currency for global financial roll-ups.
+*   **Unpivoting Unstructured Data:** Transforming hard-coded, local Excel spreadsheet schedules into tabular formats suitable for database ingestion.
+*   **Data Quality Management:** Enforcing strict data typing and automated handling of null values to ensure reporting accuracy and integrity.
 
 ---
 
 ## 📐 Dimensional Modeling (Star Schema)
 
-To ensure high query performance and logical data relationships, the centralized data was modeled using a **Star Schema** architecture. 
+To support a wide variety of applications and ensure data is accurate and available to consume[cite: 1], the transformed data is structured using advanced dimensional modeling techniques[cite: 1]. 
 
-*   **Fact Tables:** Designed to store the quantitative, granular event data (e.g., student enrollments, financial transactions, course registrations).
-*   **Dimension Tables:** Created comprehensive dimension tables (e.g., `Dim_Campus`, `Dim_Date`, `Dim_Program`) to provide the descriptive context necessary for slicing and filtering the data.
-*   **Relationships:** Established strictly defined 1-to-Many relationships with enforced referential integrity, ensuring accurate cross-filtering across the entire model.
+*   **Fact Tables:** `Fact_Financials`, `Fact_StudentPerformance`, and `Fact_ComplianceRisk` track granular, quantitative metrics.
+*   **Dimension Tables:** `Dim_Campus`, `Dim_Date`, and `Dim_Program` (Business, Culinary Arts, etc.) provide the necessary context for slicing the data.
+*   **Relationships:** Strictly defined 1-to-Many active relationships ensure optimal DAX query performance and seamless cross-filtering.
 
 ---
 
-## 🔄 Process Automation & Kaizen Impact
+## 🧮 Advanced DAX & Business Logic
 
-Before this architecture, generating campus-wide metrics required manual data extraction, manipulation in Excel, and ad-hoc reporting—a process highly susceptible to human error and latency. 
+The reporting layer translates raw tables into business insights using statistical tools and methods[cite: 1]. Key DAX implementations include:
 
-By engineering this automated pipeline:
-*   **Latency Reduced:** Reporting shifted from manual, weekly updates to an automated refresh cycle.
-*   **Single Source of Truth:** Eliminated data discrepancies between different campus reports.
-*   **Scalability:** The Star Schema is designed to easily integrate new campuses or data sources without breaking the existing architecture.
+*   **Year-Over-Year Growth:** 
+    ```dax
+    YoY_Student_Growth = DIVIDE([Total_Students_CY] - [Total_Students_PY], [Total_Students_PY], 0)
+    ```
+*   **Dynamic Risk Thresholds:** 
+    ```dax
+    Risk_Flag = IF([Compliance_Score] < 85, "High Risk", "Acceptable")
+    ```
+
+---
+
+## 📊 Global Dashboard & Automated Workflows
+
+The final output is a suite of executive reporting tools designed for tight integration and up-to-date data delivery[cite: 1]. 
+
+**The Global View Dashboard:**
+Features a global view reporting model to facilitate subsequent expansion to other campus locations[cite: 1]. It includes top-level geographical mapping, dynamic KPI cards for Financials and Functional Excellence[cite: 1], and deep drill-through capabilities to investigate specific regional performance.
+
+**Automated Actionable Alerts:**
+The system is designed for the automated identification and notification of data changes and thresholds requiring action[cite: 1]. If a campus triggers a `Risk_Flag` (e.g., a drop in compliance standards), automated workflows immediately notify regional directors, shifting the organization from reactive reporting to proactive risk management.
+
+---
+
+## 🤝 Stakeholder Communication & Impact
+A critical component of this architecture is driving business insights[cite: 1] for non-technical stakeholders. By replacing manual spreadsheets with this centralized Power BI platform, regional leadership and executive teams gain immediate, self-service access to accurate data, allowing them to focus on strategic hospitality and educational initiatives rather than data aggregation.
